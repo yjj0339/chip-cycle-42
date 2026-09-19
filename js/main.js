@@ -98,18 +98,13 @@ function makeLegend(spec,redraw){
   });
   return wrap;
 }
-const io=new IntersectionObserver(function(ents){
-  ents.forEach(function(en){
-    if(en.isIntersecting){
-      const t=en.target;
-      if(t.classList.contains("fig-body")) renderChartById(t.id);
-      io.unobserve(t);
-    }
-  });
-},{rootMargin:"260px 0px",threshold:0.02});
-document.querySelectorAll(".fig-body, #killdial").forEach(function(el){ io.observe(el); });
-document.querySelectorAll(".fig-body").forEach(function(el){ io.observe(el); });
-renderChartById("triggers");
+/* 全量渲染：空闲时一次画完（SVG 总量小，比懒渲染更可靠；.in 入场类随之生效） */
+function renderAllCharts(){
+  Object.keys(window.CCDEFS).forEach(renderChartById);
+  renderChartById("killdial");
+}
+if("requestIdleCallback" in window) requestIdleCallback(renderAllCharts,{timeout:900});
+else setTimeout(renderAllCharts,350);
 
 /* 单位标注 */
 document.querySelectorAll(".fig-unit").forEach(function(sp){
