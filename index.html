@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>浪潮机器 · 推理芯片四十二年周期（1985–2026）</title>
+<meta name="description" content="深度研究交互图谱：把推理芯片行业 42 年切成六个窗口，重建「需求点火→重复下单→产能到达→行业出清」的共同机制，26 张可交互图表，三种情景与八个可证伪触发器。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F2EA'/%3E%3Cpath d='M3 24 C8 22, 10 10, 14 12 S 20 22, 29 6' stroke='%23C2451E' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-era="overview">
+
+<!-- ═══════════════ 顶部导航 ═══════════════ -->
+<nav id="topnav" aria-label="章节导航">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#top"><span class="brand-mark">▙</span> 浪潮机器<span class="brand-sub">1985–2026</span></a>
+    <div class="nav-links" id="navLinks"></div>
+    <div class="nav-progress"><i id="navProgress"></i></div>
+  </div>
+</nav>
+
+<!-- ═══════════════ 封面 ═══════════════ -->
+<header class="hero" id="top">
+  <div class="hero-ghost" aria-hidden="true">1985—2026</div>
+  <div class="hero-inner">
+    <p class="hero-kicker">深度研究 · 交互式图谱 · 数据截至 2026 年 9 月</p>
+    <h1 class="hero-title">浪潮机器</h1>
+    <p class="hero-sub">推理芯片行业的四十二年周期</p>
+    <p class="hero-lede">从 FPGA 的第一粒可编程逻辑单元，到吞下全球数据中心资本开支近半的加速器——这条产业链换过四次主引擎，却始终踩着同一条四拍节奏：<em>需求点火 → 重复下单 → 产能到达 → 行业出清</em>。本报告把 1985–2026 切成六个窗口，逐轮解剖这台「浪潮机器」，并在结尾给出三种未来与一套可证伪的监测仪表。</p>
+    <div class="hero-kpis">
+      <div class="kpi"><b>42</b><span>年跨度</span></div>
+      <div class="kpi"><b>6</b><span>个历史窗口</span></div>
+      <div class="kpi"><b>26</b><span>张交互图表</span></div>
+      <div class="kpi"><b>14</b><span>条公司生命线</span></div>
+      <div class="kpi"><b>8</b><span>个可证伪触发器</span></div>
+    </div>
+    <p class="hero-hint">向下滚动阅读 · 点击任意图表右下角「源与数据」可钻取口径与出处</p>
+  </div>
+</header>
+
+<div class="page">
+<div class="layout">
+
+<!-- ═══════════════ 主内容列 ═══════════════ -->
+<main class="content" id="content">
+
+  <!-- ─────────── 总览 ─────────── -->
+  <section class="chapter" id="s0" data-era="overview">
+    <header class="era-head">
+      <span class="era-num">总览</span>
+      <h2>浪潮的形状</h2>
+      <span class="era-years">1985 – 2026</span>
+    </header>
+    <div class="prose">
+      <p>1985 年，Xilinx 发售第一批 XC2064：八乘八的可配置逻辑块，一共八十四个触发器，售价五百五十美元。彼时「可编程」是半导体里一门不起眼的小生意，全行业规模不足一亿美元。四十年后，一颗 Blackwell GPU 由两千零八十亿颗晶体管组成，用将近两千平方毫米的硅片、十二颗 HBM 堆栈封装在一起，单颗系统价格超过一栋郊区住宅——而买它的客户，下单单位是「万卡集群」。</p>
+      <p>四十二年间，主引擎换过四次：可编程逻辑、光通信器件、图形处理器、定制加速器。每一次换引擎，都伴随一轮完整的资本循环：一个新需求被点燃，订单相互印证、层层放大，产能顺着建设周期姗姗来迟，最后以过剩的方式抵达，把一批公司送上岸、把另一批埋进海底。引擎越来越大，韵脚却几乎没变过。</p>
+      <blockquote class="pullquote">「产能总是以需求的名义下订单，<br>以过剩的方式抵达。」</blockquote>
+      <p>下面四张图是全书的地图：图 01 是四十二年全景墙图，把六轮周期与近四十个关键事件压进一条时间轴；图 02 是十四家公司的生命线；图 03 用对数轴展示「接力棒」如何一级一级变大；图 04 的机制矩阵则是每一章都会回到的分析框架。<span class="note">口径提示：本页所有金额均为美元，亿 = 10⁸；标注 <b class="e">E</b> 的数字为作者据公开资料的整理估算，详见各图「源与数据」。</span></p>
+    </div>
+
+    <figure class="fig fig-wide" id="f01">
+      <figcaption><span class="fig-no">图 01</span><span class="fig-title">四十二年墙图 · 六轮周期与关键事件</span></figcaption>
+      <div class="fig-body" id="c01"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c01">源与数据 ▾</button><span class="fig-unit" data-for="c01"></span></div>
+    </figure>
+
+    <figure class="fig" id="f02">
+      <figcaption><span class="fig-no">图 02</span><span class="fig-title">十四家公司生命线 · 谁点火，谁出清</span></figcaption>
+      <div class="fig-body" id="c02"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c02">源与数据 ▾</button><span class="fig-unit" data-for="c02"></span></div>
+    </figure>
+
+    <figure class="fig" id="f03">
+      <figcaption><span class="fig-no">图 03</span><span class="fig-title">接力棒 · 四类芯片收入的量级交替（对数轴）</span></figcaption>
+      <div class="fig-body" id="c03"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c03">源与数据 ▾</button><span class="fig-unit" data-for="c03"></span></div>
+    </figure>
+
+    <figure class="fig" id="f04">
+      <figcaption><span class="fig-no">图 04</span><span class="fig-title">机制矩阵 · 六窗口 × 四阶段</span></figcaption>
+      <div class="fig-body" id="c04"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c04">源与数据 ▾</button><span class="fig-unit" data-for="c04"></span></div>
+    </figure>
+  </section>
+
+  <!-- ─────────── 窗口一 ─────────── -->
+  <section class="chapter" id="s1" data-era="w1">
+    <header class="era-head">
+      <span class="era-num">窗口一</span>
+      <h2>FPGA 创立</h2>
+      <span class="era-years">1985 – 1997</span>
+    </header>
+    <div class="prose">
+      <p>机制的起点不是芯片，而是一种不满。1980 年代初，电信与军工设备商受够了 ASIC：每改一版逻辑就要重开一次光罩、等三个月、烧掉几十万美元。1983 至 1985 年，Altera、Lattice、Xilinx 相继成立，把「用软件定义硬件」从论文变成商品。1985 年 XC2064 出货那天，可编程逻辑这门生意的商业基因就此定盘：<b>把一次性工程费用（NRE）压到零，让客户敢赌未来。</b></p>
+      <p>第一个「重复下单」的客户结构由此成形。军工客户要小批量、常改版；电信设备商的机型像时装一样每季翻新——每款新交换机、每套新基站逻辑，都是一次返场购买。FPGA 与终端需求的关系，天然就是订阅制。到 1997 年，四先驱（Xilinx、Altera、Lattice、Actel）合计收入约 18 亿美元，行业毛利长期站在 60% 以上。</p>
+      <p>供给侧同样克制：FPGA 双寡头自己没有晶圆厂，租用 IDM 的 0.8μm → 0.5μm → 0.35μm 产线，扩产节奏跟着设计 win 走，几乎不预建产能。1996–97 年电信大扩容第一次把 FPGA 拽进「交期紧张」，但真正的点火器还在隔壁——互联网。<span class="note">窗口一没有走到出清：它积攒的产能惯性，将由窗口二加倍偿还。</span></p>
+    </div>
+    <div class="mech-strip" data-era="w1"></div>
+
+    <figure class="fig" id="f05">
+      <figcaption><span class="fig-no">图 05</span><span class="fig-title">四先驱 · FPGA 收入 1985–1997</span></figcaption>
+      <div class="fig-body" id="c05"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c05">源与数据 ▾</button><span class="fig-unit" data-for="c05"></span></div>
+    </figure>
+
+    <figure class="fig" id="f06">
+      <figcaption><span class="fig-no">图 06</span><span class="fig-title">点火源 · 电信设备商收入 1990–2003</span></figcaption>
+      <div class="fig-body" id="c06"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c06">源与数据 ▾</button><span class="fig-unit" data-for="c06"></span></div>
+    </figure>
+
+    <figure class="fig" id="f07">
+      <figcaption><span class="fig-no">图 07</span><span class="fig-title">谁在买单 · FPGA 终端市场结构 1990–2002</span></figcaption>
+      <div class="fig-body" id="c07"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c07">源与数据 ▾</button><span class="fig-unit" data-for="c07"></span></div>
+    </figure>
+
+    <figure class="fig" id="f08">
+      <figcaption><span class="fig-no">图 08</span><span class="fig-title">估值过山车 · 先驱市值指数 1995–2003（对数轴）</span></figcaption>
+      <div class="fig-body" id="c08"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c08">源与数据 ▾</button><span class="fig-unit" data-for="c08"></span></div>
+    </figure>
+  </section>
+
+  <!-- ─────────── 窗口二 ─────────── -->
+  <section class="chapter" id="s2" data-era="w2">
+    <header class="era-head">
+      <span class="era-num">窗口二</span>
+      <h2>光通信：繁荣与崩塌</h2>
+      <span class="era-years">1998 – 2003</span>
+    </header>
+    <div class="prose">
+      <p>1995–96 年，美国主干网互联网流量「每一百天翻一番」——这句后来被证明只在 1995–96 年短暂成立的判断，成了整轮周期的点火宣言。1996 年《电信法》放开长途与本地市场，运营商融资成本骤降；DWDM（密集波分复用）让一根光纤的容量每年翻番。需求侧的叙事、监管的松动、技术的杠杆，三者同时到位——这就是「需求点火」的标准配方。</p>
+      <p>接下来是教科书级的「重复下单」。设备商按「流量永远翻番」排产，运营商担心缺货而双份下单（double-ordering），渠道商囤货博涨价，器件商再按放大后的订单扩产——每一层都以为自己在对冲风险，实际上在互相验证同一场幻觉。JDS Uniphase 在 1999–2000 年吞并十余家公司，市值一度冲到约 1,250 亿美元（E）；北电一家公司占多伦多交易所指数权重约三分之一，市值峰值约 3,600 亿美元（E）。</p>
+      <blockquote class="pullquote">「人们买走的不是光纤，<br>而是『流量永远不够』的信念。」</blockquote>
+      <p>2000–01 年，产能到达：全球新建的光纤、器件厂、组装线在同一时间投产。而真实流量增速早已从「百天翻番」回落到「每年翻一番」——依然惊人，却远不足以吃掉按神话预订的产能。美国长途光纤在 2002 年只有约 2.7% 被点亮（E）。四拍里最响的一拍来了。</p>
+      <p>出清：2001 年运营商资本开支砍掉四成以上，北电累计裁员约六万人（三分之二），JDSU 市值蒸发约 97%，2002 年 WorldCom 破产案把底牌掀光。光通信是四十二年里唯一一次「教科书式出清」——此后每轮周期都在问同一个问题：这一次，出清是被完成了，还是仅仅被推迟？</p>
+    </div>
+    <div class="mech-strip" data-era="w2"></div>
+
+    <figure class="fig" id="f09">
+      <figcaption><span class="fig-no">图 09</span><span class="fig-title">运营商资本开支 · 1996–2005</span></figcaption>
+      <div class="fig-body" id="c09"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c09">源与数据 ▾</button><span class="fig-unit" data-for="c09"></span></div>
+    </figure>
+
+    <figure class="fig" id="f10">
+      <figcaption><span class="fig-no">图 10</span><span class="fig-title">蒸发的市值 · JDSU 与北电 1997–2003（对数轴）</span></figcaption>
+      <div class="fig-body" id="c10"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c10">源与数据 ▾</button><span class="fig-unit" data-for="c10"></span></div>
+    </figure>
+
+    <figure class="fig" id="f11">
+      <figcaption><span class="fig-no">图 11</span><span class="fig-title">剪刀差 · 铺设的光纤 vs 点亮的流量</span></figcaption>
+      <div class="fig-body" id="c11"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c11">源与数据 ▾</button><span class="fig-unit" data-for="c11"></span></div>
+    </figure>
+  </section>
+
+  <!-- ─────────── 窗口三 ─────────── -->
+  <section class="chapter" id="s3" data-era="w3">
+    <header class="era-head">
+      <span class="era-num">窗口三</span>
+      <h2>安静的十年</h2>
+      <span class="era-years">2004 – 2012</span>
+    </header>
+    <div class="prose">
+      <p>出清之后，没有人接棒。可编程逻辑市场变成双寡头的缓慢生意：Xilinx 与 Altera 合计约九成份额，行业规模八年只翻了一倍出头，年增速长期低于 10%。互联网流量的真实增长由已铺设的「暗光纤」逐年点亮来消化——上一轮的过剩产能，反而成了这一轮无需扩产的原因。产能利用率缓慢修复，但没有人再敢预建。</p>
+      <p>安静十年里最重要的信号藏在通用计算内部。Hennessy 与 Patterson 那张著名的幻灯片显示：1986–2003 年，单核性能每年提升约 52%；2003 年之后骤降到每年约 3.5%。摩尔定律在供给端还在推进，但「性能免费午餐」结束了——软件想变快，只能去买并行、买专用。这是为窗口四预先埋好的需求侧引信。</p>
+      <p>供给侧同样有伏笔：2006–07 年 NVIDIA 推出 CUDA，用免费的编程模型收编开发者；FPGA 双寡头开始宣传「可重构计算」；Google 的工程师开始给机器学习集群成批采购游戏显卡。火种都在，只是没有风。2012 年 6 月，AlexNet 用两张 GTX 580 在一周内拿下 ImageNet——风来了。</p>
+    </div>
+    <div class="mech-strip" data-era="w3"></div>
+
+    <figure class="fig" id="f12">
+      <figcaption><span class="fig-no">图 12</span><span class="fig-title">双寡头 · 可编程逻辑市占率 1998–2012</span></figcaption>
+      <div class="fig-body" id="c12"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c12">源与数据 ▾</button><span class="fig-unit" data-for="c12"></span></div>
+    </figure>
+
+    <figure class="fig" id="f13">
+      <figcaption><span class="fig-no">图 13</span><span class="fig-title">安静的十年 · 市场规模与单核性能失速</span></figcaption>
+      <div class="fig-body" id="c13"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c13">源与数据 ▾</button><span class="fig-unit" data-for="c13"></span></div>
+    </figure>
+  </section>
+
+  <!-- ─────────── 窗口四 ─────────── -->
+  <section class="chapter" id="s4" data-era="w4">
+    <header class="era-head">
+      <span class="era-num">窗口四</span>
+      <h2>TPU 点火</h2>
+      <span class="era-years">2013 – 2019</span>
+    </header>
+    <div class="prose">
+      <p>2012–2015 年，模型训练算力大约每 3.4 个月翻一番（OpenAI 测算）——比摩尔定律快一个数量级的需求增速，第一次降临在芯片行业头上。2015 年，Google 把内部代号 TPU 的推理芯片部署进数据中心：那篇 2017 年发布的论文里最被低估的数字是——<b>95% 的 TPU 负载是推理</b>。「推理芯片」这个词，从诞生起就是这门生意的主体。</p>
+      <p>重复下单随之成形：云厂商竞相把 GPU/TPU 挂上货架，模型实验室按月扩容，同一位客户每季度回来买更多——算力第一次成为「耗材」。NVIDIA 数据中心收入从 FY2016 的约 3.4 亿美元涨到 FY2020 的约 30 亿美元，五年十倍。2016–2018 年，P100/V100、TPU v2/v3、AWS FPGA 实例、华为昇腾、寒武纪相继登场，「加速器」从异端变成正统。</p>
+      <blockquote class="pullquote">「加速器时代的第一场出清，<br>来的不是 AI，而是加密货币。」</blockquote>
+      <p>2017–18 年，挖矿需求混进 GPU 订单，现货价翻倍，供应链照旧层层加单。2018 年四季度币价崩塌，GPU 现货腰斩，NVIDIA 为渠道库存与退货计提约 1.38 亿美元。这是加速器时代第一次出清预演——规模不大，但四拍完整。它证明了一件事：只要「重复下单」存在，出清就只是时间问题，与叙事无关。</p>
+    </div>
+    <div class="mech-strip" data-era="w4"></div>
+
+    <figure class="fig" id="f14">
+      <figcaption><span class="fig-no">图 14</span><span class="fig-title">算力胃口 · 模型训练 FLOP 2012–2019（对数轴）</span></figcaption>
+      <div class="fig-body" id="c14"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c14">源与数据 ▾</button><span class="fig-unit" data-for="c14"></span></div>
+    </figure>
+
+    <figure class="fig" id="f15">
+      <figcaption><span class="fig-no">图 15</span><span class="fig-title">第一笔大钱 · NVIDIA 数据中心收入 FY2015–FY2020</span></figcaption>
+      <div class="fig-body" id="c15"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c15">源与数据 ▾</button><span class="fig-unit" data-for="c15"></span></div>
+    </figure>
+
+    <figure class="fig" id="f16">
+      <figcaption><span class="fig-no">图 16</span><span class="fig-title">阵营成形 · 加速器时间线 2013–2019</span></figcaption>
+      <div class="fig-body" id="c16"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c16">源与数据 ▾</button><span class="fig-unit" data-for="c16"></span></div>
+    </figure>
+
+    <figure class="fig" id="f17">
+      <figcaption><span class="fig-no">图 17</span><span class="fig-title">点火前夜 · 大四家资本开支与 AI 占比 2013–2019</span></figcaption>
+      <div class="fig-body" id="c17"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c17">源与数据 ▾</button><span class="fig-unit" data-for="c17"></span></div>
+    </figure>
+  </section>
+
+  <!-- ─────────── 窗口五 ─────────── -->
+  <section class="chapter" id="s5" data-era="w5">
+    <header class="era-head">
+      <span class="era-num">窗口五</span>
+      <h2>短缺与并购超级周期</h2>
+      <span class="era-years">2020 – 2023</span>
+    </header>
+    <div class="prose">
+      <p>2020 年三重点火：疫情把消费电子与云计算需求同时拉满，加密货币牛市二次点火，AI 训练负载开始抬头。晶圆交期从 12 周拉到 52 周，「重复下单」以最经典的方式重现——系统商为保证供货下双份订单，一份给自己，一份给恐惧。汽车厂停产、家电缺芯、GPU 溢价两倍：四十二年里交期读数最极端的一年。</p>
+      <p>产能焦虑随后被资本化，成了并购超级周期。AMD 以约 493 亿美元收购 Xilinx（2022 年交割，较宣布时增值约四成）；软银 320 亿美元买 ARM；英伟达 400 亿美元收购 Arm 未果、英特尔 54 亿美元收购 Tower 半途流产——<b>买产能的企图大多失败，因为稀缺早已不在晶圆，而在先进封装与高带宽内存。</b></p>
+      <p>瓶颈因此第一次变得可量化：台积电 CoWoS 月产能 2023 年约 1.5 万片、2024 年底约 3.5 万片、2025 年预计 7 万片（E）；HBM 行业收入从 2023 年约 44 亿美元跳到 2024 年约 160 亿美元（E）。「CoWoS 有多少片」第一次成为财经头条——也为本报告的 Kill Switch 提供了逐季可核查的数据基础。</p>
+      <p>出清来了个微缩版：2022 下半年起，GPU 现货溢价归零、FPGA 与消费类库存大规模减记、Intel 2023 年为剥离 PSG 而承认其持续亏损。但 2022 年 11 月 ChatGPT 在出清完成之前点燃了新需求——<b>这一轮的出清被「接管」了，而非被完成</b>。没出清完的库存与产能，滚进了窗口六。</p>
+    </div>
+    <div class="mech-strip" data-era="w5"></div>
+
+    <figure class="fig" id="f18">
+      <figcaption><span class="fig-no">图 18</span><span class="fig-title">HBM · 行业产能与收入 2019–2026E</span></figcaption>
+      <div class="fig-body" id="c18"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c18">源与数据 ▾</button><span class="fig-unit" data-for="c18"></span></div>
+    </figure>
+
+    <figure class="fig" id="f19">
+      <figcaption><span class="fig-no">图 19</span><span class="fig-title">CoWoS · 台积电先进封装月产能 2019–2026E</span></figcaption>
+      <div class="fig-body" id="c19"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c19">源与数据 ▾</button><span class="fig-unit" data-for="c19"></span></div>
+    </figure>
+
+    <figure class="fig" id="f20">
+      <figcaption><span class="fig-no">图 20</span><span class="fig-title">并购超级周期 · 2006–2025 交易图（对数轴）</span></figcaption>
+      <div class="fig-body" id="c20"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c20">源与数据 ▾</button><span class="fig-unit" data-for="c20"></span></div>
+    </figure>
+
+    <figure class="fig" id="f21">
+      <figcaption><span class="fig-no">图 21</span><span class="fig-title">短缺读数 · FPGA 交期与 AI GPU 现货溢价</span></figcaption>
+      <div class="fig-body" id="c21"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c21">源与数据 ▾</button><span class="fig-unit" data-for="c21"></span></div>
+    </figure>
+  </section>
+
+  <!-- ─────────── 窗口六 ─────────── -->
+  <section class="chapter" id="s6" data-era="w6">
+    <header class="era-head">
+      <span class="era-num">窗口六</span>
+      <h2>当前 AI 周期</h2>
+      <span class="era-years">2024 – 2026</span>
+    </header>
+    <div class="prose">
+      <p>推理接管了一切。头部平台的月产 token 在两年内长了两个数量级，推理占 AI 算力的比重回升至约七成；加速芯片厂商收入 2025 年约 2,100 亿美元（E），其中 NVIDIA 数据中心业务一个财年即 1,152 亿美元。大四家（微软、谷歌、亚马逊、Meta）资本开支：2024 年约 2,390 亿 → 2025 年约 3,740 亿（+57%）→ 2026 年预计约 4,900 亿美元（+31%，E，H1 已披露）。图 22 的压力表把这个读数与 +14% 的 Kill Switch 放在一起。</p>
+      <p>第二极同时成形。Google TPU（2025 年第七代 Ironwood，单 Pod 九千余芯片）、AWS Trainium、Meta MTIA 等自研 ASIC 经由博通、Marvell 之手放量：博通 AI 半导体收入 FY2025 约 200 亿美元，定制 ASIC 阵营占加速芯片收入比重升至约一成半（E）。「买 NVIDIA 的」与「自己造的」两条路线，第一次同时处于扩张期——这改变了上一轮「单一供应商」的出清传导路径。</p>
+      <p>与历史窗口相比，三个不同与三个相同。不同：①买方是全球利润最厚的几家公司，资产负债表扛得起更长折旧；②瓶颈从晶圆转移到 HBM/CoWoS——可逐季核查，这让「产能到达」第一次能被精确掐表；③推理是经常性收入，出清形态更可能是利用率下滑与减值，而非订单凭空消失。相同：重复下单的苗头已经出现——算力租赁长约、供应商融资、集群转售，每一项都在把当期需求向未来透支；产能到达排在 2026–27E。<b>问题不是有没有出清，而是出清的深度。</b></p>
+      <blockquote class="pullquote">「这一轮的不同，在于买家的钱包；<br>相同的，是买家的行为。」</blockquote>
+    </div>
+    <div class="mech-strip" data-era="w6"></div>
+
+    <figure class="fig" id="f22">
+      <figcaption><span class="fig-no">图 22</span><span class="fig-title">Top-4 资本开支压力表 · 2021–2026E（含 +14% Kill Switch）</span></figcaption>
+      <div class="fig-body" id="c22"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c22">源与数据 ▾</button><span class="fig-unit" data-for="c22"></span></div>
+    </figure>
+
+    <figure class="fig" id="f23">
+      <figcaption><span class="fig-no">图 23</span><span class="fig-title">推理接管 · 训练/推理算力结构与 token 产量</span></figcaption>
+      <div class="fig-body" id="c23"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c23">源与数据 ▾</button><span class="fig-unit" data-for="c23"></span></div>
+    </figure>
+
+    <figure class="fig" id="f24">
+      <figcaption><span class="fig-no">图 24</span><span class="fig-title">竞争格局 · 加速芯片收入份额 2023–2026E</span></figcaption>
+      <div class="fig-body" id="c24"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c24">源与数据 ▾</button><span class="fig-unit" data-for="c24"></span></div>
+    </figure>
+
+    <figure class="fig" id="f25">
+      <figcaption><span class="fig-no">图 25</span><span class="fig-title">第二极 · 定制 ASIC 收入 2023–2026E</span></figcaption>
+      <div class="fig-body" id="c25"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c25">源与数据 ▾</button><span class="fig-unit" data-for="c25"></span></div>
+    </figure>
+  </section>
+
+  <!-- ─────────── 结论 ─────────── -->
+  <section class="chapter" id="s7" data-era="end">
+    <header class="era-head">
+      <span class="era-num">结论</span>
+      <h2>三种未来与一台证伪仪</h2>
+      <span class="era-years">2025 → 2028E</span>
+    </header>
+    <div class="prose">
+      <p>把六轮机制叠在一起，落到当前周期，就是一棵三分支的情景树。基准情景（Base，主观概率 55%）：推理需求与自研 ASIC 接棒，产能分批到达、利用率高位缓降，加速芯片市场规模从 2025 年约 2,100 亿美元升至 2028 年约 5,300 亿美元——<b>约 2.5 倍</b>。保守情景（Conservative，30%）：资本开支增速在 2027 年跌破 +14%，部分产能递延，行业用两年时间消化，终值约 1.6 倍。收缩情景（Contraction，15%）：某一家头部买方收缩叠加效率红利失效，2027 年出现真正的行业出清，峰值回落，2028 年不足 2025 年水平（约 0.9 倍）。</p>
+      <p>我们不打算预测哪一支成真——我们更相信给出<b>可证伪的仪表</b>。Kill Switch 只有一条：<b>当大四家资本开支的滚动同比增速跌破 +14%</b>——即低于消化 2026–27E 已签约 CoWoS/HBM 扩产所需的最低需求增速（作者估算）——Base 情景即告证伪，头寸与叙事应切换到 Conservative。它的好处是：数据逐季公开、口径干净、无法狡辩。</p>
+      <p>在这条主线之外，还有八个可证伪触发器（T1–T8），每一个都绑定明确的数据源与检查频率：指引、法说会、现货价、租赁报价、模型成本曲线。下方「证伪台」可以逐个拨动——拨下的开关越多，情景钟摆离 Base 越远。<span class="note">本节全部为主观概率与估算，不构成投资建议。</span></p>
+    </div>
+    <div class="mech-strip" data-era="end"></div>
+
+    <figure class="fig" id="f26">
+      <figcaption><span class="fig-no">图 26</span><span class="fig-title">情景树 · 2025→2028E 三分支</span></figcaption>
+      <div class="fig-body" id="c26"></div>
+      <div class="fig-foot"><button class="src-btn" data-drill="c26">源与数据 ▾</button><span class="fig-unit" data-for="c26"></span></div>
+    </figure>
+
+    <div class="desk-grid">
+      <div class="desk">
+        <div class="desk-head"><span class="desk-tag">仪表台 A</span><h3>Kill Switch · +14% 资本开支增速</h3></div>
+        <div class="fig-body" id="killdial"></div>
+        <p class="desk-note">指针 = 大四家资本开支滚动同比增速（最新口径：2026E，H1 实绩 + 指引外推，E）。跌破红线即 Base 证伪。检验频率：每季度财报季。</p>
+      </div>
+      <div class="desk">
+        <div class="desk-head"><span class="desk-tag">仪表台 B</span><h3>证伪台 · 八个可证伪触发器</h3>
+          <span class="desk-state" id="triggerState">0 / 8 触发 · <b>Base</b></span></div>
+        <div class="fig-body" id="triggers"></div>
+        <p class="desk-note">点击开关模拟触发。T1/T2/T5/T7/T8 指向 Conservative，T3/T4/T6 指向 Contraction；任一 Contraction 触发即进入收缩预警，≥3 个触发则视为情景切换。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── 附录 ─────────── -->
+  <section class="chapter chapter-plain" id="s8" data-era="appendix">
+    <header class="era-head">
+      <span class="era-num">附录</span>
+      <h2>方法论、术语与全部来源</h2>
+      <span class="era-years">可下载</span>
+    </header>
+    <div class="prose">
+      <p><b>方法论。</b>本页为公开资料整理与作者估算的研究性图谱，非投资建议。规则：① 标注 <b class="e">E</b> 的数字为估算，其余为公开披露或广为引用的历史数据；② 美国公司财年已尽量折算为日历年，折算处视为估算；③ 金额均为名义美元（亿美元），未做通胀调整；④ 市值、交期、现货价取公开报道的区间中值。任何一张图的底层数据都可在「源与数据」抽屉中查看并下载 CSV。</p>
+      <p><b>术语。</b>FPGA（现场可编程门阵列）：出厂后可由软件反复改写逻辑的芯片；HBM（高带宽内存）：与 GPU/ASIC 垂直堆叠互连的内存，AI 加速器的「粮草」；CoWoS：台积电的先进封装技术，把大芯片与 HBM 封装在一起，当前产能瓶颈所在；ASIC：面向单一用途定制的芯片，本文特指云厂商自研 AI 加速器（TPU、Trainium 等）；出清：产能过剩引发的价格下行、库存减记与厂商出局的整段过程。</p>
+      <p><b>局限性。</b>光通信器件、可编程逻辑的行业口径在不同年份由不同机构统计，拼接处存在台阶；自研 ASIC 的内部资本化支出没有公开口径，图 25 大幅依赖供应链估算；情景概率为主观赋值。若你在某张图发现与一手来源冲突的数字，以一手来源为准，并欢迎来信指正。</p>
+      <p class="appendix-cta"><button class="big-src-btn" id="allSourcesBtn">打开全部来源清单（约 90 条）</button>
+      <button class="big-src-btn" id="downloadAllBtn">下载全部底层数据（CSV）</button></p>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <div class="foot-grid">
+      <div><b>浪潮机器</b><span>推理芯片行业的四十二年周期 · 1985–2026</span></div>
+      <div>研究性图谱 · 全部估算以 E 标注 · 不构成投资建议<br>数据截至 2026-09 · 浅色排版 · 零依赖单页</div>
+    </div>
+    <p class="foot-fine">SIGGRAPH、NeurIPS、公司 10-K、法说会纪要与行业追踪为底层数据来源；点击各图「源与数据」查看明细。</p>
+  </footer>
+</main>
+
+<!-- ═══════════════ 右侧联动数据面板 ═══════════════ -->
+<aside class="panel" id="panel" aria-label="随章节联动的数据面板">
+  <div class="panel-topbar"><span class="panel-label">数据面板</span><span class="panel-era-badge" id="panelBadge">总览</span></div>
+  <div class="panel-mech" id="panelMech"></div>
+  <div class="panel-body" id="panelBody"></div>
+  <div class="panel-foot" id="panelFoot"></div>
+</aside>
+
+</div><!-- /layout -->
+</div><!-- /page -->
+
+<!-- 钻取抽屉 -->
+<div class="drawer-mask" id="drawerMask"></div>
+<aside class="drawer" id="drawer" aria-label="数据来源钻取">
+  <div class="drawer-head">
+    <div><p class="drawer-kicker" id="drKicker">图 00</p><h3 id="drTitle">标题</h3></div>
+    <button class="drawer-close" id="drClose">✕</button>
+  </div>
+  <div class="drawer-body" id="drBody"></div>
+</aside>
+
+<!-- 公司卡片模态 -->
+<div class="modal-mask" id="modalMask">
+  <div class="modal" id="modal"></div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script src="js/data.js"></script>
+<script src="js/charts-data.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
