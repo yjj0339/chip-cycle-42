@@ -64,7 +64,7 @@
       <div class="fig-foot"><button class="src-btn" data-drill="c01">源与数据 ▾</button><span class="fig-unit" data-for="c01"></span></div>
     </figure>
 
-    <figure class="fig" id="f02">
+    <figure class="fig pan" id="f02">
       <figcaption><span class="fig-no">图 02</span><span class="fig-title">十四家公司生命线 · 谁点火，谁出清</span></figcaption>
       <div class="fig-body" id="c02"></div>
       <div class="fig-foot"><button class="src-btn" data-drill="c02">源与数据 ▾</button><span class="fig-unit" data-for="c02"></span></div>
@@ -366,7 +366,7 @@
 
 <!-- ═══════════════ 右侧联动数据面板 ═══════════════ -->
 <aside class="panel" id="panel" aria-label="随章节联动的数据面板">
-  <div class="panel-topbar"><span class="panel-label">数据面板</span><span class="panel-era-badge" id="panelBadge">总览</span></div>
+  <div class="panel-topbar"><span class="panel-label">数据面板</span><span class="panel-era-badge" id="panelBadge">总览</span><button class="panel-close" id="panelClose" aria-label="收起数据面板">✕</button></div>
   <div class="panel-mech" id="panelMech"></div>
   <div class="panel-body" id="panelBody"></div>
   <div class="panel-foot" id="panelFoot"></div>
@@ -374,6 +374,13 @@
 
 </div><!-- /layout -->
 </div><!-- /page -->
+
+<!-- 手机端：数据面板悬浮钮 + 底部章节导航 -->
+<button id="panelFab" aria-label="打开数据面板"><i>▤</i> 数据面板</button>
+<nav id="tabbar" aria-label="章节导航">
+  <div class="tab-progress"><i id="tabProgress"></i></div>
+  <div class="tab-items" id="tabItems"></div>
+</nav>
 
 <!-- 钻取抽屉 -->
 <div class="drawer-mask" id="drawerMask"></div>

@@ -1,25 +1,38 @@
 /* ═══════════════════════════════════════════════════════════
-   main.js — 导航 / 联动面板 / 懒渲染 / 钻取抽屉 / 全局交互
+   main.js v2 — 导航（顶部+底部）/ 联动面板 / 全量渲染 / 钻取抽屉
    ═══════════════════════════════════════════════════════════ */
 (function(){
 "use strict";
 const R=window.CCR, TT=R.TT, ERAS=window.CC.ERAS;
-const SECTIONS=[["s0","总览"],["s1","窗口一"],["s2","窗口二"],["s3","窗口三"],["s4","窗口四"],["s5","窗口五"],["s6","窗口六"],["s7","结论"],["s8","附录"]];
+const SECTIONS=[
+  ["s0","总览","overview"],["s1","一","w1"],["s2","二","w2"],["s3","三","w3"],["s4","四","w4"],
+  ["s5","五","w5"],["s6","六","w6"],["s7","结论","end"],["s8","附录","appendix"]
+];
 
-/* ── 导航 ── */
+/* ── 顶部导航（桌面）与底部导航（手机） ── */
 const navLinks=document.getElementById("navLinks");
+const tabItems=document.getElementById("tabItems");
 SECTIONS.forEach(function(s){
   const a=document.createElement("a");
   a.href="#"+s[0]; a.textContent=s[1]; a.dataset.for=s[0];
   navLinks.appendChild(a);
+  const t=document.createElement("a");
+  t.href="#"+s[0]; t.textContent=s[1]; t.dataset.for=s[0];
+  const era=ERAS[s[2]];
+  if(era&&era.color) t.style.setProperty("--tabera",era.color);
+  tabItems.appendChild(t);
 });
 
-/* 进度条 */
-window.addEventListener("scroll",function(){
+/* 进度条（顶部+底部同步） */
+const prog1=document.getElementById("navProgress"), prog2=document.getElementById("tabProgress");
+function onScroll(){
   const h=document.documentElement;
-  const p=h.scrollTop/(h.scrollHeight-h.clientHeight);
-  document.getElementById("navProgress").style.width=(p*100).toFixed(2)+"%";
-},{passive:true});
+  const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);
+  const w=(p*100).toFixed(2)+"%";
+  if(prog1) prog1.style.width=w;
+  if(prog2) prog2.style.width=w;
+}
+window.addEventListener("scroll",onScroll,{passive:true});
 
 /* ── 右侧联动面板 ── */
 const panelBody=document.getElementById("panelBody");
@@ -32,10 +45,10 @@ function renderPanel(eraKey){
   if(currentEra===eraKey) return;
   currentEra=eraKey;
   panelBadge.textContent=e.badge+(e.name?" · "+e.name:"");
-  if(e.color) panelBadge.style.color=e.color; else panelBadge.style.color="";
+  panelBadge.style.color=e.color||"";
   panelMech.innerHTML=window.CC.MECH_STAGES.map(function(st,i){
-    const active=!e.mech||e.mech[i][1]==="—"?"":(e.mech&&e.mech[i]?" on":" on");
-    return '<i class="'+(e.mech&&e.mech[i][1]!=="—"?"on":"")+'" style="'+(e.mech&&e.mech[i][1]!=="—"?"background:"+(window.CC.MECH_STAGES[i].color):"")+'" title="'+st.name+'"></i>';
+    const on=e.mech&&e.mech[i]&&e.mech[i][1]!=="—";
+    return '<i class="'+(on?"on":"")+'" style="'+(on?"background:"+window.CC.MECH_STAGES[i].color:"")+'" title="'+st.name+'"></i>';
   }).join("");
   let html='<div class="panel-fade">';
   html+='<div class="pb-title">'+e.name+'</div>';
@@ -56,8 +69,7 @@ document.querySelectorAll(".mech-strip").forEach(function(strip){
   strip.innerHTML=window.CC.MECH_STAGES.map(function(st,i){
     const m=era.mech[i];
     return '<div class="mech-cell" style="--sc:'+st.color+'">'
-      +'<div class="st" style="color:'+st.color+'">'+st.name+'</div>'
-      +'<div class="yr">'+m[1]+'</div>'
+      +'<div class="st" style="color:'+st.color+'">'+st.name+'<span class="yr">'+m[1]+'</span></div>'
       +'<div class="tx">'+m[2]+'</div></div>';
   }).join("");
   const cap=document.createElement("p");
@@ -66,7 +78,7 @@ document.querySelectorAll(".mech-strip").forEach(function(strip){
   strip.after(cap);
 });
 
-/* ── 图表懒渲染 ── */
+/* ── 图表：加载后全量渲染（按容器宽度取环境） ── */
 const rendered={};
 function renderChartById(id){
   if(rendered[id]) return;
@@ -76,29 +88,19 @@ function renderChartById(id){
   if(id==="triggers"){ R.renderTriggers(el); el.classList.add("in"); return; }
   const spec=window.CCDEFS[id]; if(!spec) return;
   try{ R.render(el,spec); }catch(e){ /* 单图失败不拖垮页面 */ }
-  /* 图例（线图与柱图） */
   if(spec.series&&["lines","bars","shareBars","shareArea","shareArea2","scatter"].indexOf(spec.type)>=0){
-    const legWrap=document.createElement("div");
-    el.parentNode.insertBefore(legWrap,el);
-    const draw=function(){ R.render(el,spec); };
-    const leg=makeLegend(spec,draw);
-    legWrap.appendChild(leg);
+    const leg=document.createElement("div"); leg.className="legend";
+    spec.series.forEach(function(s){
+      const lg=document.createElement("span");
+      lg.className="lg"+(s._off?" off":"");
+      lg.innerHTML='<i class="sw" style="background:'+s.color+'"></i>'+s.name;
+      lg.onclick=function(){ s._off=!s._off; lg.classList.toggle("off",!!s._off); try{ R.render(el,spec); }catch(e){} };
+      leg.appendChild(lg);
+    });
+    el.insertBefore(leg,el.firstChild);
   }
   el.classList.add("in");
 }
-function makeLegend(spec,redraw){
-  const wrap=document.createElement("div"); wrap.className="legend";
-  spec.series.forEach(function(s){
-    const lg=document.createElement("span");
-    lg.className="lg"+(s._off?" off":"");
-    lg.innerHTML='<i class="sw'+(spec.type==="scatter"?" dot":"")+'" style="background:'+s.color+';display:inline-block;width:14px;height:4px;border-radius:1px;margin-right:6px;vertical-align:middle"></i>'+s.name;
-    lg.style.cursor="pointer";
-    lg.onclick=function(){ s._off=!s._off; lg.classList.toggle("off",!!s._off); redraw(); };
-    wrap.appendChild(lg);
-  });
-  return wrap;
-}
-/* 全量渲染：空闲时一次画完（SVG 总量小，比懒渲染更可靠；.in 入场类随之生效） */
 function renderAllCharts(){
   Object.keys(window.CCDEFS).forEach(renderChartById);
   renderChartById("killdial");
@@ -107,27 +109,46 @@ function renderAllCharts(){
 if("requestIdleCallback" in window) requestIdleCallback(renderAllCharts,{timeout:900});
 else setTimeout(renderAllCharts,350);
 
+/* 窗口尺寸跨档变化 → 重绘全部图表 */
+let lastW=window.innerWidth;
+let rzTimer=null;
+window.addEventListener("resize",function(){
+  clearTimeout(rzTimer);
+  rzTimer=setTimeout(function(){
+    const w=window.innerWidth;
+    const crossed=(lastW<560)!==(w<560)||(lastW<1024)!==(w<1024);
+    if(!crossed&&Math.abs(w-lastW)<40) return;
+    lastW=w;
+    Object.keys(rendered).forEach(function(k){ delete rendered[k]; });
+    document.querySelectorAll(".fig-body").forEach(function(f){ f.classList.remove("in"); f.innerHTML=""; });
+    renderAllCharts();
+  },300);
+});
+
 /* 单位标注 */
 document.querySelectorAll(".fig-unit").forEach(function(sp){
   const spec=window.CCDEFS[sp.dataset.for];
   if(spec&&spec.unit) sp.textContent=spec.unit;
 });
 
-/* ── 滚动 spy ── */
+/* ── 滚动 spy：双导航 + 面板 ── */
+function setActive(id,eraKey){
+  document.querySelectorAll("#navLinks a").forEach(function(a){ a.classList.toggle("on",a.dataset.for===id); });
+  document.querySelectorAll("#tabItems a").forEach(function(a){ a.classList.toggle("on",a.dataset.for===id); });
+  document.body.dataset.era=eraKey||"overview";
+  renderPanel(eraKey==="appendix"?"overview":eraKey);
+}
 const spy=new IntersectionObserver(function(ents){
   ents.forEach(function(en){
     if(en.isIntersecting){
-      const id=en.target.id;
-      document.querySelectorAll("#navLinks a").forEach(function(a){ a.classList.toggle("on",a.dataset.for===id); });
-      document.body.dataset.era=en.target.dataset.era||"overview";
-      renderPanel(en.target.dataset.era==="appendix"?"overview":en.target.dataset.era);
+      setActive(en.target.id,en.target.dataset.era);
     }
   });
-},{rootMargin:"-30% 0px -55% 0px"});
+},{rootMargin:"-25% 0px -60% 0px"});
 SECTIONS.forEach(function(s){ const el=document.getElementById(s[0]); el&&spy.observe(el); });
-renderPanel("overview");
+renderPanel("overview"); setActive("s0","overview");
 
-/* 键盘翻章 */
+/* 键盘翻章（桌面） */
 document.addEventListener("keydown",function(ev){
   if(ev.target.tagName==="INPUT"||ev.target.tagName==="TEXTAREA") return;
   if(ev.key!=="ArrowRight"&&ev.key!=="ArrowLeft") return;
@@ -139,13 +160,19 @@ document.addEventListener("keydown",function(ev){
   document.getElementById(SECTIONS[nxt][0]).scrollIntoView({behavior:"smooth"});
 });
 
+/* ── 面板：手机底部抽屉 ── */
+const fab=document.getElementById("panelFab");
+const panelClose=document.getElementById("panelClose");
+if(fab) fab.addEventListener("click",function(){ document.body.classList.toggle("panel-open"); });
+if(panelClose) panelClose.addEventListener("click",function(){ document.body.classList.remove("panel-open"); });
+
 /* ── 钻取抽屉 ── */
 const drawer=document.getElementById("drawer"), mask=document.getElementById("drawerMask");
 function openDrawer(){ drawer.classList.add("open"); mask.classList.add("open"); }
-function closeDrawer(){ drawer.classList.remove("open"); mask.classList.remove("open"); }
+function closeDrawer(){ drawer.classList.remove("open"); mask.classList.remove("open"); document.body.classList.remove("drawer-open"); }
 document.getElementById("drClose").onclick=closeDrawer;
 mask.onclick=closeDrawer;
-document.addEventListener("keydown",function(ev){ if(ev.key==="Escape"){ closeDrawer(); document.getElementById("modalMask").classList.remove("open"); } });
+document.addEventListener("keydown",function(ev){ if(ev.key==="Escape"){ closeDrawer(); document.getElementById("modalMask").classList.remove("open"); document.body.classList.remove("panel-open"); } });
 
 function tableFor(spec){
   if(!spec||!spec.series) return null;
@@ -161,7 +188,7 @@ function tableFor(spec){
   } else {
     const map={};
     spec.series.forEach(function(s,si){
-      (s.pts||[]).forEach(function(p){ const k=String(p[0]); (map[k]=map[k]||new Array(spec.series.length+ (spec.lineRight?1:0)).fill(null))[si]=p[1]; });
+      (s.pts||[]).forEach(function(p){ const k=String(p[0]); (map[k]=map[k]||new Array(spec.series.length+(spec.lineRight?1:0)).fill(null))[si]=p[1]; });
     });
     Object.keys(map).sort(function(a,b){ return a-b; }).forEach(function(k){
       rows.push([k].concat(map[k]));
@@ -232,7 +259,6 @@ document.getElementById("allSourcesBtn").addEventListener("click",function(){
   openDrawer();
 });
 document.getElementById("downloadAllBtn").addEventListener("click",function(){
-  const parts=["chart,head,rows..."];
   let all="";
   Object.keys(window.CCDEFS).forEach(function(id){
     const spec=window.CCDEFS[id];
@@ -247,11 +273,12 @@ document.getElementById("modalMask").addEventListener("click",function(ev){
   if(ev.target===this) this.classList.remove("open");
 });
 
-/* 平滑锚点（兼容固定导航偏移） */
+/* 平滑锚点（固定导航偏移） */
 document.querySelectorAll('a[href^="#"]').forEach(function(a){
   a.addEventListener("click",function(ev){
     const t=document.getElementById(a.getAttribute("href").slice(1));
-    if(t){ ev.preventDefault(); window.scrollTo({top:t.offsetTop-70,behavior:"smooth"}); }
+    if(t){ ev.preventDefault(); window.scrollTo({top:t.offsetTop-64,behavior:"smooth"}); }
   });
 });
+onScroll();
 })();
