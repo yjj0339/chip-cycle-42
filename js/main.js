@@ -72,12 +72,12 @@ function renderChartById(id){
   if(rendered[id]) return;
   rendered[id]=true;
   const el=document.getElementById(id); if(!el) return;
-  if(id==="killdial"){ R.renderGauge(el); return; }
-  if(id==="triggers"){ R.renderTriggers(el); return; }
+  if(id==="killdial"){ R.renderGauge(el); el.classList.add("in"); return; }
+  if(id==="triggers"){ R.renderTriggers(el); el.classList.add("in"); return; }
   const spec=window.CCDEFS[id]; if(!spec) return;
-  R.render(el,spec);
+  try{ R.render(el,spec); }catch(e){ /* 单图失败不拖垮页面 */ }
   /* 图例（线图与柱图） */
-  if(["lines","bars","shareBars","shareArea","shareArea2","scatter"].indexOf(spec.type)>=0){
+  if(spec.series&&["lines","bars","shareBars","shareArea","shareArea2","scatter"].indexOf(spec.type)>=0){
     const legWrap=document.createElement("div");
     el.parentNode.insertBefore(legWrap,el);
     const draw=function(){ R.render(el,spec); };
