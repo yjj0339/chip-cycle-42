@@ -161,7 +161,7 @@ document.addEventListener("keydown",function(ev){
 });
 
 /* ── 面板：手机底部抽屉 ── */
-const fab=document.getElementById("panelFab");
+const fab=document.getElementById("panelBtn");
 const panelClose=document.getElementById("panelClose");
 if(fab) fab.addEventListener("click",function(){ document.body.classList.toggle("panel-open"); });
 if(panelClose) panelClose.addEventListener("click",function(){ document.body.classList.remove("panel-open"); });
