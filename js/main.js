@@ -102,6 +102,7 @@ function makeLegend(spec,redraw){
 function renderAllCharts(){
   Object.keys(window.CCDEFS).forEach(renderChartById);
   renderChartById("killdial");
+  renderChartById("triggers");
 }
 if("requestIdleCallback" in window) requestIdleCallback(renderAllCharts,{timeout:900});
 else setTimeout(renderAllCharts,350);
