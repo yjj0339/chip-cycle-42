@@ -470,7 +470,44 @@ function renderTimeline(el,spec){
 /* ═══════════ 墙图：桌面横排 / 手机竖排 ═══════════ */
 function renderWall(el){
   const env=envFor(el);
-  if(env.mobile) return renderWallMobile(el);
+  if(env.mobile) return renderWallPan(el);
+  return buildWallSvg(el);
+}
+const WALL_ERA_SHORT={w1:"FPGA",w2:"光通信",w3:"安静十年",w4:"TPU",w5:"短缺并购",w6:"AI 周期"};
+const WALL_ERA_START={w1:1985,w2:1998,w3:2004,w4:2013,w5:2020,w6:2024};
+function renderWallPan(el){
+  el.innerHTML="";
+  const wrap=dv("wall-pan",el);
+  const holder=dv("wall-holder",wrap);
+  const svg=buildWallSvg(holder);
+  svg.style.width="1060px"; svg.style.minWidth="1060px";
+  const nav=dv("wall-nav",el);
+  const pw=1060-56-26;
+  const chips=[];
+  Object.keys(WALL_ERA_START).forEach(function(k){
+    const era=CC.ERAS[k];
+    const chip=dv("wall-chip",nav);
+    chip.innerHTML='<i style="background:'+era.color+'"></i>'+WALL_ERA_SHORT[k];
+    chip.addEventListener("click",function(){
+      const x=Math.max(0,56+((WALL_ERA_START[k]-1985)/(2026.6-1985))*pw-44);
+      wrap.scrollTo({left:x,behavior:"smooth"});
+    });
+    chips.push([k,chip]);
+  });
+  let ticking=false;
+  wrap.addEventListener("scroll",function(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(function(){
+      ticking=false;
+      const year=1985+((wrap.scrollLeft+wrap.clientWidth*0.4-56)/pw)*(2026.6-1985);
+      let act="w1";
+      Object.keys(WALL_ERA_START).forEach(function(k){ if(year>=WALL_ERA_START[k]) act=k; });
+      chips.forEach(function(pr){ pr[1].classList.toggle("on",pr[0]===act); });
+    });
+  },{passive:true});
+  return svg;
+}
+function buildWallSvg(el){
   const W=1060,H=660,m={l:56,r:26};
   const pw=W-m.l-m.r;
   const bandY=36, row1Y=82, row0Y=104, railY=120, curTop=140, curH=252;
@@ -563,104 +600,6 @@ function renderWall(el){
   });
   CC.MECH_STAGES.forEach((st,si)=>{
     mk("text",{x:m.l+2+si*(pw/4),y:H-8,"font-size":10,fill:st.color,"font-weight":700,class:"charttext"},svg).textContent=(si+1)+" "+st.name;
-  });
-  return svg;
-}
-
-/* 手机竖排墙图：年份向下、价值向右（对数），事件挂右缘轨道 */
-function renderWallMobile(el){
-  const W=envFor(el).W;
-  const m={l:46,r:10};
-  const pw=W-m.l-m.r;
-  const top=64, btmAxis=26, mechH=146, legendH=8;
-  const ph=Math.round(W*1.55);
-  const H=top+ph+btmAxis+mechH+legendH;
-  const svg=frame(el,W,H);
-  /* 顶部系列图例（2×2） */
-  CCDEFS.c03.series.forEach(function(s,si){
-    const col=si%2, row=Math.floor(si/2);
-    const lx=m.l+col*((W-30)/2+14), ly=16+row*17;
-    mk("line",{x1:lx,x2:lx+16,y1:ly-3,y2:ly-3,stroke:s.color,"stroke-width":2.5},svg);
-    mk("text",{x:lx+21,y:ly,"font-size":9.5,fill:s.color,"font-weight":700,class:"charttext"},svg).textContent=s.name.split("（")[0];
-  });
-  const xl=[1985,2026.6], yd=[0.3,4000];
-  const X=function(v){ return m.l+(Math.log10(Math.max(v,1e-9))-Math.log10(yd[0]))/(Math.log10(yd[1])-Math.log10(yd[0]))*pw; };
-  const Y=function(v){ return top+(v-xl[0])/(xl[1]-xl[0])*ph; };
-  const eraRanges=[["w1",1985,1998],["w2",1998,2004],["w3",2004,2013],["w4",2013,2020],["w5",2020,2024],["w6",2024,2026.6]];
-  const eraShort={w1:"一 · FPGA 创立",w2:"二 · 光通信兴衰",w3:"三 · 安静十年",w4:"四 · TPU 点火",w5:"五 · 短缺与并购",w6:"六 · AI 周期"};
-  const secId={w1:"s1",w2:"s2",w3:"s3",w4:"s4",w5:"s5",w6:"s6"};
-  eraRanges.forEach(r=>{
-    const era=CC.ERAS[r[0]];
-    const y0=Y(r[1]), y1=Y(r[2]);
-    const band=mk("rect",{x:m.l,y:y0,width:pw,height:y1-y0,fill:era.color,opacity:0.06},svg);
-    mk("rect",{x:m.l,y:y0,width:pw,height:16,fill:era.color,opacity:0.85},svg);
-    const et=mk("text",{x:m.l+6,y:y0+12,"font-size":9.5,fill:"#FFFDF6","font-weight":700,class:"charttext"},svg);
-    et.textContent=eraShort[r[0]]; et.setAttribute("stroke",era.color); et.setAttribute("stroke-width",2.5); et.setAttribute("paint-order","stroke");
-    mk("rect",{x:m.l,y:y0,width:3,height:y1-y0,fill:era.color},svg);
-    const bt=svg.lastChild; void bt;
-    band.style.cursor="pointer";
-    band.addEventListener("click",()=>{ const sec=document.getElementById(secId[r[0]]); sec&&sec.scrollIntoView({behavior:"smooth"}); });
-  });
-  [1,10,100,1000].forEach(v=>{
-    mk("line",{x1:X(v),x2:X(v),y1:top,y2:top+ph,class:"grid-line"},svg);
-    mk("text",{x:X(v),y:top+ph+14,"text-anchor":"middle","font-size":8.5,class:"tick-lab"},svg).textContent=fmtN(v);
-  });
-  [1985,1995,2005,2015,2026].forEach(v=>{
-    mk("line",{x1:m.l,x2:m.l+pw,y1:Y(v),y2:Y(v),class:"grid-line","stroke-dasharray":"1 4"},svg);
-    mk("text",{x:m.l-4,y:Y(v)+3,"text-anchor":"end","font-size":8.5,class:"tick-lab"},svg).textContent=v;
-  });
-  CCDEFS.c03.series.forEach(s=>{
-    const pts=s.pts.filter(p=>p[0]<=2026.6).map(p=>[X(p[1]),Y(p[0])]);
-    const d=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
-    const path=mk("path",{d:d,fill:"none",stroke:s.color,"stroke-width":2,"stroke-linejoin":"round","stroke-linecap":"round"},svg);
-    path.setAttribute("pathLength","1"); path.classList.add("drawline"); path.classList.add("slow");
-  });
-  const railX=m.l+pw-8;
-  const majorLabels={"1996.0":"电信法","2000.2":"纳指见顶","2002.5":"WorldCom","2012.5":"AlexNet","2015.3":"TPU 上线","2018.9":"加密崩塌","2020.3":"疫情+A100","2022.9":"ChatGPT"};
-  CC.EVENTS.forEach((ev,i)=>{
-    const cy=Y(ev[0]), color=CC.ERAS[ev[2]].color;
-    mk("line",{x1:railX,y1:cy,x2:railX+6,y2:cy,stroke:color,"stroke-width":1},svg);
-    mk("circle",{cx:railX,cy:cy,r:3,fill:i%2?"#FFFDF6":color,stroke:color,"stroke-width":1.3},svg);
-    const ml=majorLabels[String(ev[0])];
-    if(ml){
-      mk("line",{x1:railX-8,y1:cy,x2:railX-16,y2:cy,stroke:color,"stroke-width":0.7,opacity:0.5},svg);
-      const t=annoText(svg,railX-18,cy+3,ml,color,9,"700","end");
-      t.setAttribute("stroke","#F6F2E9"); t.setAttribute("stroke-width",2.5); t.setAttribute("paint-order","stroke");
-    }
-    const hit=mk("circle",{cx:railX,cy:cy,r:9,fill:"transparent"},svg);
-    hit.addEventListener("mousemove",ev2=>TT.show('<div class="tt-t">'+Math.floor(ev[0])+" 年</div><div>"+esc(ev[1])+"</div>",ev2.clientX,ev2.clientY));
-    hit.addEventListener("mouseleave",TT.hide);
-  });
-  const stageRanges={
-    w1:[[1985,1990],[1990,1995],[1993,1997],[1996,1997]],
-    w2:[[1996,1998],[1998,2000],[2000,2001],[2001,2003]],
-    w3:null,
-    w4:[[2012,2015],[2015,2018],[2017,2019],[2018,2019]],
-    w5:[[2020,2021],[2020.5,2022],[2021,2023],[2022,2023]],
-    w6:[[2022.9,2024],[2024,2026],[2025,2027],[2026.6,2027]]
-  };
-  const stripTop=top+ph+btmAxis+8, rowH=22;
-  eraRanges.forEach((r,ri)=>{
-    const era=CC.ERAS[r[0]];
-    const y=stripTop+ri*rowH;
-    mk("text",{x:m.l,y:y+rowH-7,"font-size":9,fill:era.color,"font-weight":700,class:"charttext"},svg).textContent=eraShort[r[0]];
-    const ranges=stageRanges[r[0]];
-    const segX=m.l+98, segW=(W-14)-segX;
-    if(!ranges){ mk("text",{x:segX+4,y:y+rowH-7,"font-size":9,fill:"#C4B795",class:"charttext"},svg).textContent="—— 无点火，空转"; return; }
-    ranges.forEach((rg,si)=>{
-      const st=CC.MECH_STAGES[si];
-      const fx=segX+((rg[0]-1985)/41.6)*segW, fw=Math.max(2,((Math.min(rg[1],2026.6)-Math.max(rg[0],1985))/41.6)*segW);
-      const cell=mk("rect",{x:fx,y:y+6,width:fw,height:rowH-12,fill:st.color,opacity:0.82,rx:1.5},svg);
-      cell.addEventListener("mousemove",ev2=>TT.show('<div class="tt-t">'+era.name+" · "+st.name+"</div><div>"+esc(era.mech[si][2])+"</div>",ev2.clientX,ev2.clientY));
-      cell.addEventListener("mouseleave",TT.hide);
-    });
-  });
-  const legY=stripTop+6*rowH+8;
-  CC.MECH_STAGES.forEach((st,si)=>{
-    const col=si%2, row=Math.floor(si/2);
-    const lx=m.l+col*((W-30)/2+14), ly=legY+row*15;
-    mk("rect",{x:lx,y:ly-8,width:10,height:10,fill:st.color,opacity:0.85,rx:2},svg);
-    mk("text",{x:lx+15,y:ly+1,"font-size":9.5,fill:st.color,"font-weight":700,class:"charttext"},svg).textContent=(si+1)+" "+st.name;
   });
   return svg;
 }
